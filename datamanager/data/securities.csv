@@ -1,0 +1,3 @@
+id,name,symbol,security_type,benchmark,management_expense_ratio,admission_date,security_class,fetch_data
+,8IP Emerging Companies Limited,8EC,LIC/LIT,RBA cash rate + 2% pa.,0,1/12/15,Australian Shares,TRUE
+,8I Holdings Ltd,8IH,LIC/LIT,,0,1/12/14,International Shares,TRUE

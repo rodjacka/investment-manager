@@ -42,16 +42,20 @@ class SecurityType(models.Model):
         return self.security_type
 
 class SecurityDividend(models.Model):
-    dividend_date = models.DateField()
+    dividend_date = models.DateField(blank=True, null=True)
+    payable_date = models.DateField(blank=True, null=True)
+    ex_dividend_date = models.DateField(blank=True, null=True)
     dividend_per_share = models.FloatField()
-    franking_percentage = models.FloatField()
+    franking_percentage = models.FloatField(blank=True, null=True)
+    dividend_type = models.CharField(max_length=20)
+    notes = models.TextField(blank=True, null=True)
     security = models.ForeignKey('Security', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "dividends"
 
     def __str__(self):
-        return str(self.dividend_date)
+        return "{} - {}".format(self.security, str(self.ex_dividend_date))
 
 class Security(models.Model):
     symbol = models.CharField(max_length=10, unique=True)
@@ -77,6 +81,10 @@ class SecurityDailyPrice(models.Model):
     close = models.FloatField()
     volume = models.BigIntegerField()
     security = models.ForeignKey('Security', on_delete=models.CASCADE)
+
+
+    def __str__(self):
+        return "{} - {}".format(self.security, str(self.date))
 
 #### Notes ####
 class NoteTypes(models.Model):

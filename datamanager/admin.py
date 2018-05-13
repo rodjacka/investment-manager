@@ -31,7 +31,12 @@ class SecurityTypeResource(resources.ModelResource):
 
     class Meta:
         model = SecurityType
-        exclude = ('id',)
+
+class SecurityClassResource(resources.ModelResource):
+
+    class Meta:
+        model = SecurityClass
+
 
 class SecurityDividendResource(resources.ModelResource):
     security = fields.Field(
@@ -41,7 +46,7 @@ class SecurityDividendResource(resources.ModelResource):
 
     class Meta:
         model = SecurityDividend
-        fields = ('id','security','dividend_date','dividend_per_share','franking_percentage')
+        fields = ('id','franking_percentage','notes','payable_date','dividend_per_share','ex_dividend_date','dividend_date','symbol','dividend_type')
 
 class SecurityAdmin(ImportExportModelAdmin):
     resource_class = SecurityResource
@@ -51,10 +56,17 @@ class SecurityDividendAdmin(ImportExportModelAdmin):
     resource_class = SecurityDividendResource
     pass
 
+class SecurityTypeAdmin(ImportExportModelAdmin):
+    resource_class =  SecurityTypeResource
+    pass
+
+class SecurityClassAdmin(ImportExportModelAdmin):
+    resource_class =  SecurityClassResource
+    pass
 
 
 admin.site.register(Security, SecurityAdmin)
-admin.site.register(SecurityType)
-admin.site.register(SecurityClass)
+admin.site.register(SecurityType, SecurityTypeAdmin)
+admin.site.register(SecurityClass, SecurityClassAdmin)
 admin.site.register(SecurityDividend, SecurityDividendAdmin)
 admin.site.register(SecurityDailyPrice)
